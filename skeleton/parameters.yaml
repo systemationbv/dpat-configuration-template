@@ -1,0 +1,5 @@
+readonly:
+  __system__: ${{ parameters.dataproduct }}
+  __version__: '${{ parameters.identifier.split(".")[2] }}.0.0'
+values:
+  description: DPAT Configuration for ${{ values.dataproduct | dump }} Data Product

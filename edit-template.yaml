@@ -1,0 +1,151 @@
+apiVersion: witboost.com/v2
+kind: EditTemplate
+metadata:
+  name: edit-dpat-configuration.1
+  title: Edit DPAT Configuration
+  description: Edit a DPAT Configuration artifact created with the DPAT Configuration Template
+
+  mesh:
+    icon: https://cdn-icons-png.flaticon.com/512/8187/8187143.png
+  tags:
+    - dpat
+spec:
+  owner: rabobank
+  useCaseTemplateId:
+    - urn:dmb:utm:dpat-configuration-template:1.0.0
+
+  parameters:
+    - title: Update DPAT Witboost Metadata
+      description: Parameters for the DPAT Configuration template
+      type: object
+      required:
+        - name
+        - domain
+        - dataproduct
+        - dataProductRepo
+        - dataProductRootDirectory
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Required name used for display purposes
+          ui:field: EntityNamePicker
+          default: DPAT Configuration
+          ui:options:
+            allowArbitraryValues: true
+        domain:
+          title: Domain
+          type: string
+          description: Domain of the Data Product this DPAT configuration artifact belongs to
+          ui:field: EntityPicker
+          ui:options:
+            allowArbitraryValues: false
+            allowedKinds:
+              - Domain
+        dataproduct:
+          title: Data Product
+          type: string
+          description: Data Product this DPAT configuration artifact belongs to
+          ui:field: EntityPicker
+          ui:filter:
+            - fieldName: domain
+              entityPath: spec.domain
+          ui:options:
+            allowArbitraryValues: false
+            allowedKinds:
+              - System
+        dataProductRepo:
+          title: Data Product Repository
+          type: string
+          description: DPAT Configuration artifact will be created into this repository
+          ui:field: EntitySelectionPicker
+          ui:fieldName: dataproduct
+          ui:property: metadata.annotations["dev.azure.com/repo-name"]
+          ui:options:
+            allowArbitraryValues: false
+        dataProductRootDirectory:
+          title: Data Product Root Directory
+          type: string
+          description: Root directory of the Data Product repository where the DPAT Configuration artifact will be created
+          ui:field: EntitySelectionPicker
+          ui:fieldName: dataproduct
+          ui:property: metadata.annotations["dev.azure.com/root-directory"]
+          ui:options:
+            allowArbitraryValues: false
+
+        owner:
+          title: Component Owner
+          type: string
+          description: Automatically selected from the Data Product metadata. Data Product owner.
+          ui:field: EntitySelectionPicker
+          ui:fieldName: dataproduct
+          ui:property: spec.owner
+          ui:options:
+            allowArbitraryValues: false
+        dependsOn:
+          title: Depends on
+          type: array
+          default: []
+          items:
+            type: string
+            ui:field: EntityComponentsPicker
+            ui:fieldName: dataproduct
+            ui:options:
+              allowArbitraryValues: false
+
+    - title: Update DPAT Configuration Parameters
+      description: Parameters for the DPAT Configuration template
+      environmentParameters: true
+      type: object
+      required:
+        - resourceGroupName
+        - adlsStorageAccount
+        - adlsContainerName
+        - databricksSecretKey
+        - azureClientId
+        - azureTenantId
+        - azureScope
+        - metadataAPI
+        - dataProducerName
+        - relativeUrl
+      properties:
+        resourceGroupName:
+          title: Resource Group Name
+          type: string
+          description: Name of the Azure Resource Group where the DPAT Data Product will be deployed
+        adlsStorageAccount:
+          title: ADLS Storage Account
+          type: string
+          description: Name of the ADLS Storage Account to be used in the DPAT Data Product configuration
+        adlsContainerName:
+          title: ADLS Container Name
+          type: string
+          description: Name of the ADLS Container to be used in the DPAT Data Product configuration
+        databricksSecretKey:
+          title: Databricks Secret Key
+          type: string
+          description: Secret Key of the Databricks workspace to be used in the DPAT Data Product configuration
+        azureClientId:
+          title: Azure Client ID
+          type: string
+          description: Client ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+        azureTenantId:
+          title: Azure Tenant ID
+          type: string
+          description: Tenant ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+        azureScope:
+          title: Azure Scope
+          type: string
+          description: Scope to be used for Azure authentication in the DPAT Data Product configuration
+        metadataAPI:
+          title: Metadata API URL
+          type: string
+          description: URL of the Metadata API to be used in the DPAT Data Product configuration
+        dataProducerName:
+          title: Data Producer Name
+          type: string
+          description: Name of the Data Producer to be used in the DPAT Data Product configuration
+        relativeUrl:
+          title: Relative URL
+          type: string
+          description: Relative URL to be used in the DPAT Data Product configuration

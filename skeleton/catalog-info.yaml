@@ -1,0 +1,41 @@
+%SKELETON
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.identifier }}
+  version: ${{ values.identifier.split(".")[2] + ".0.0" }}
+  description: ${{ values.description }}
+  tags: [dpat, workload]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: workload
+  lifecycle: experimental
+  owner: ${{ values.owner | dump }}
+  system: ${{ values.dataproduct | dump }}
+  domain: ${{ values.domain | dump }}
+  name: ${{ values.name | dump }}
+  description: ${{ values.description }}
+  mesh:
+    name: ${{ values.name | dump }}
+    description: ${{ values.description }}
+    kind: workload
+    infrastructureTemplateId: ${{ values.infrastructureTemplateId }}
+    useCaseTemplateId: ${{ values.useCaseTemplateId }}
+    dependsOn: {% if values.dependsOn | length > 0 %}{% for i in values.dependsOn %}
+      - ${{ i }}{% endfor %}{% else %}[]{% endif %}
+    specific: 
+      resourceGroupName: ${{ env.resourceGroupName }}
+      adls:
+        storageAccount: ${{ env.adlsStorageAccount }}
+        containerName: ${{ env.adlsContainerName }}
+      databricks: 
+        secretKey: ${{ env.databricksSecretKey }}
+        clientId: ${{ env.azureClientId }}
+        tenantId: ${{ env.azureTenantId }}
+      metadata:
+        clientId: ${{ env.azureClientId }}
+        scope: ${{ env.azureScope }}
+        metadataAPI: ${{ env.metadataAPI }}
+        dataProducerName: ${{ env.dataProducerName }}
+        relativeUrl: ${{ env.relativeUrl }}
