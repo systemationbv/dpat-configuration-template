@@ -59,20 +59,20 @@ spec:
           title: Data Product Repository
           type: string
           description: DPAT Configuration artifact will be created into this repository
-          default: metadata.annotations["dev.azure.com/repo-name"]
+          default: rabo-wit-dp-${{ parameters.domain | replace(r/domain:| |-/, "") }}-${{ parameters.name.split(" ") | join("") | lower }}
           ui:field: EntitySelectionPicker
           ui:fieldName: dataproduct
-          ui:property: metadata.annotations["dev.azure.com/repo-name"]
+          ui:property: gitlab.com?owner=manuelscurti&repo=dpat-configuration-template
           ui:options:
             allowArbitraryValues: false
         dataProductRootDirectory:
           title: Data Product Root Directory
           type: string
-          default: metadata.annotations["dev.azure.com/root-directory"]
+          default: /components/${{ "dc-" + parameters.name.toLocaleLowerCase().split(" ").join("") }}
           description: Root directory of the Data Product repository where the DPAT Configuration artifact will be created
           ui:field: EntitySelectionPicker
           ui:fieldName: dataproduct
-          ui:property: metadata.annotations["dev.azure.com/root-directory"]
+          ui:property: https://github.com/abhi4u-here/rabobank-witboost
           ui:options:
             allowArbitraryValues: false
 
