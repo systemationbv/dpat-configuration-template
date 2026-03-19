@@ -59,7 +59,7 @@ spec:
           title: Data Product Repository
           type: string
           description: DPAT Configuration artifact will be created into this repository
-          default: rabo-wit-dp-${{ parameters.domain | replace(r/domain:| |-/, "") }}-${{ parameters.name.split(" ") | join("") | lower }}
+          default: rabo-wit-dp-finance
           ui:field: EntitySelectionPicker
           ui:fieldName: dataproduct
           ui:property: gitlab.com?owner=manuelscurti&repo=dpat-configuration-template
@@ -68,7 +68,7 @@ spec:
         dataProductRootDirectory:
           title: Data Product Root Directory
           type: string
-          default: /components/${{ "dc-" + parameters.name.toLocaleLowerCase().split(" ").join("") }}
+          default: /components/dc-dpatconfiguration
           description: Root directory of the Data Product repository where the DPAT Configuration artifact will be created
           ui:field: EntitySelectionPicker
           ui:fieldName: dataproduct
