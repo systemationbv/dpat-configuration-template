@@ -292,7 +292,7 @@ After this the system will show you the summary of the template, and you can go 
 After clicking on "Create" the registering of the Component will start. If no errors occurred it will go through the 3 phases (Fetching, Publishing and Registering) and will give you the links to the newly created Repository and the component in the Catalog.
 
 #### Users guide
-Click [here](https://raw.githubusercontent.com/systemationbv/dpat-configuration-template/blob/main/docs/Rabobank%20DPAT%20Configuration%20Template.pdf) for the graphical users guide
+Click [here](https://raw.githubusercontent.com/systemationbv/dpat-configuration-template/blob/main/docs/Rabobank_DPAT_Configuration_Template.pdf) for the graphical users guide
 
 
 **Be careful not to delete the `catalog-info.yml` as well as keep the project structure as given.**
