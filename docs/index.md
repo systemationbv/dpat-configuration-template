@@ -1,298 +1,181 @@
+# DPAT Configuration Template
+
+<br/>
+
 ### Prerequisites
 
 A Data Product should already exist in order to attach the new components to it.
+
+<br/>
 
 ### Component Basic Information
 
 This section includes the basic information that any Component of Witboost must have:
 
-- **Name**: Required name used for display purposes on your Data Product.
-- **Description**: A short description to help others understand what this Output Port is for.
-- **Domain**: The domain of the Data Product this Output Port belongs to. Be sure to choose it correctly as it is a fundamental part of the Output Port and cannot be changed afterwards.
-- **Data Product**: The Data Product this Output Port belongs to; be sure to choose the right one.
-- **Identifier**: Unique ID for this new entity inside the domain. Don't worry about filling this field; it will be automatically filled for you.
-- **Development group**: Development group of this Data Product. Don't worry about filling this field; it will be automatically filled for you.
-- **Depends on**: If you want your Output Port to depend on other components (i.e. its creation workload) from the Data Product, you can choose this option (Optional).
-
-*Example:*
-
-| Field name              | Example value                                                                                          |
-|:------------------------|:-------------------------------------------------------------------------------------------------------|
-| **Name**                | BITOL Data Contract Output Port                                                                                 |
-| **Description**         | Create a BITOL Data Contract output port                                                                        |
-| **Domain**              | domain:healthcare                                                                                      |
-| **Data Product**        | system:healthcare.vaccinationsdp.0                                                                     |
-| ***Identifier***        | Will look something like this: *healthcare.bitoldatacontracttest.0.bitoldatacontract-outputport*                     |
-| ***Development Group*** | Might look something like this: *group:datameshplatform* Depends on the Data Product development group |
-
-
-### Data Contract Details
-
-This section provides details about the BITOL Data Contract configuration:
-
-- [BITOL Data Contract](#bitol-data-contract)
-- [Schema](#schema)
-- [Data Quality](#data-quality)
-- [Support and Communication Channel](#support-and-communication-channel)
-- [Pricing](#pricing)
-- [Service Level Agreement (SLA)](#service-level-agreement-sla)
-- [Custom Properties](#custom-properties)
-- [Other Properties](#other-properties)
-
-
-
-### BITOL Data Contract
-
-General fields for BITOL Data Contract.
-
-- **nameDC**: Name of the Data Contract
-- **status**: Current status of the data contract (e.g., active, draft, deprecated)
-- **authoritativeDefinitions**: Definitions or rules that establish the data contract (this field are both at the data contract level and the description level).
-- **purpose**: Intended purpose for the provided data (from description)
-- **limitation**: Technical, compliance, and legal limitations for data use (from description)
-- **usage**: Recommended usage of the data (from description)
-- **tenant**: Indicates the property the data is primarily associated with
-- **tags**: Tags for the data contract
-
-*Example:*
-
-| Field name                   | Example value                                   |
-|:-----------------------------|:------------------------------------------------|
-| **nameDC**                   | BITOL Data Contract                             |
-| **status**                   | active                                          |
-| **purpose**                  | Provide vaccination data                        |
-| **limitation**               | Data updated weekly                             |
-| **usage**                    | Analytics                                       |
-| **tenant**                   | system:healthcare.vaccinationsdp.0              |
-| **tags**                     | [healthcare, vaccination]                       |
-| **AuthoritativeDefinitions** | [Authoritative Definitions](#authoritative-definitions)  |
-
-
-### Schema
-
-Schema definition for the data contract, describing the structure of tables, columns, and their properties.
-
-These fields are both at the table level and the column level:
-
-- **name**: The name of the table.
-- **description**: A short description of the column or table purpose.
-- **businessName**: The business-friendly name of the table or column used in reports or documentation.
-- **AuthoritativeDeflnitions**: Definitions or rules that establish the table or column as a trusted source of data.
-- **tags**: List of Labels or keywords used to categorize the table or column.
-- **dataGranularityDescription**: Description of the level of detail of the data contained in the table or column.
-
-*Example:*
-
-| Field name                       | Example value                                          |
-|:---------------------------------|:-------------------------------------------------------|
-| **name**                         | vaccinations                                    |
-| **description**                  | Vaccination records table                       |
-| **businessName**                 | Vaccinations                                    |
-| **AuthoritativeDefinitions**     | [Authoritative Definitions](#authoritative-definitions)                          |
-| **tags**                         | [healthcare, vaccination]                       |
-| **dataGranularityDescription**   | Daily                                           |
-
-Fields that are at the column level.
-
-- **maxProperties**: Specifies the maximum number of properties allowed in a schema object.
-- **minProperties**: Specifies the minimum number of properties required in a schema object.
-- **requiredField**: Indicates whether a particular field is mandatory within the schema.
-- **schemaProperties**: Defines the list of properties (columns) in the schema, including each property’s name and logical type.
-
-
-*Example:*
-
-| Field name          | Example value                                     |
-|:--------------------|:---------------------------------------------------|
-| **maxProperties**   | 10                                                |
-| **minProperties**   | 2                                                 |
-| **requiredField**   | [customerId, name, surname]                       |
-| **schemaProperties**|[Schema Properties](#schema-properties)            |
-
-
-#### Schema Properties
-
-- **primaryKey**: Indicates the field that uniquely identifies a record in the table.
-- **requiredProperty**: Specifies whether the field is mandatory.
-- **unique**: Indicates if the values in this field must be unique across all records.
-- **classification**: The sensitivity or data classification of the field (e.g., confidential, public).
-- **encryptedName**: The name of the field when stored in an encrypted format.
-- **transformSourceObjects**: Specifies any transformations applied to the source data for this field.
-- **examples**: Sample values for the field to illustrate its content.
-- **criticalDataElement**: Indicates whether this field is considered critical for business or regulatory purposes.
-- **logicalType**: The data type or logical type of the field (e.g., integer, string, date).
-
-
-*Example:*
-
-| Field name                | Example value                                   |
-|:--------------------------|:------------------------------------------------|
-| **primaryKey**            | true                                            |
-| **requiredProperty**      | true                                            |
-| **unique**                | false                                           |
-| **classification**        | Confidential                                    |
-| **encryptedName**         | cust_id_encrypted                               |
-| **transformSourceObjects**| [hash_function_applied, hash_function]          |
-| **examples**              | [12345, 67890]                                  |
-| **criticalDataElement**   | true                                            |
-| **logicalType**           | integer                                         |
-
-
-### Data Quality
-
-Data Quality Expectations for BITOL data contracts.
-
-- **nameTable**: Table name (selectable).
-- **nameColumn**: Column name (must match an existing column).
-- **quality**: List of elements qualities.
-
-> The ***table name*** on which to add a quality rule is selectable from existing tables, while the ***column name*** must be entered manually by the user.
-    Make sure to use the exact name of an existing column. Also, **the combination of table and column name should not be repeated** to avoid duplicate quality rules.
-
-*Example:*
-
-| Field name        | Example value           |
-|:------------------|:-----------------------|
-| **nameTable**     | vaccinations           |
-| **nameColumn**    | patient_id             |
-| **qualities**     | [Qualities](#qualities)             |
-
-#### Qualities
-
-- **nameQuality**: The name of the quality metric or rule.
-- **descriptionQuality**: A short description explaining what the quality represents.
-- **typeQuality**: The type of quality check (e.g., test, sql, custom).
-- **dimension**: The dimension or aspect of data quality that this quality affects (selectable)
-- **severity**: The severity level of the quality issue (e.g., low, medium, high).
-- **businessImpact**: Description of the potential impact on business if the quality is not met.
-- **qualityTags**: Tags or labels used to categorize the quality.
-- **authoritativeDefinitions**: Definitions establishing the field or table as a trusted source.
-- **scheduler**: Name of the scheduler or job that runs this quality check.
-- **schedule**: The timing or frequency when the quality check is executed.
-
-*Example:*
-
-| Field name                   | Example value                               |
-|:-----------------------------|:-------------------------------------------|
-| **nameQuality**              | completeness_check_customer_id             |
-| **descriptionQuality**       | Ensures all customer IDs are present       |
-| **typeQuality**              | sql                                        |
-| **dimension**                | accuracy                                   |
-| **severity**                 | High                                       |
-| **businessImpact**           | Missing IDs affect reporting and billing   |
-| **qualityTags**              | [mandatory, critical]                      |
-| **authoritativeDefinitions** | [Authoritative Definitions](#authoritative-definitions) |
-| **scheduler**                | daily_data_quality_job                     |
-| **schedule**                 | Daily at 02:00 AM                          |
-
-
-### Support and Communication Channel
-
-Brief information about available support or communication channels, including type, link, description, and scope.
-
-- **channel**: Channel name (e.g., Slack)
-- **urlChannel**: URL to the channel
-- **descriptionChannel**: Short description
-- **scope**: The scope of the support or communication channel. (interactive, announcements, issues)
-- **invitationUrl**: The URL for inviting users to the support or communication channel.
-- **tools**: Tool name (slack, teams, email, etc.)
-
-*Example:*
-
-| Field name             | Example value                                      |
-|:-----------------------|:--------------------------------------------------|
-| **channel**            | Slack                                             |
-| **urlChannel**         | https://slack.com/yourworkspace                   |
-| **descriptionChannel** | Team communication and notifications              |
-| **scope**              | interactive                                       |
-| **invitationUrl**      | https://slack.com/invite/abcd1234                 |
-| **tools**              | slack                                             |
-
-
-### Pricing
-
-Details about the pricing model, costs, or billing information associated with the data contract or its usage.
-
-- **priceAmount**: Subscription price per unit
-- **priceCurrency**: Currency of the price
-- **priceUnit**: Unit of measure for the price
-
-*Example:*
-
-| Field name                | Example value                                 |
-|:--------------------------|:----------------------------------------------|
-| **priceAmount**           | 9.95                                          |
-| **priceCurrency**         | USD                                           |
-| **priceUnit**             | megabyte                                      |
-
-
-### Service Level Agreement (SLA)
-
-List of Service Level Agreement (SLA) properties, each describing a specific quality or guarantee.
-
-- **slaDefaultElement**: Default element for the SLA
-- **propertySLA**: SLA property (from slaProperties)
-- **valueSLA**: Value for the property (from slaProperties)
-- **valueExt**: Extended value (from slaProperties)
-- **unitSLA**: Unit of measurement (from slaProperties)
-- **elementSLA**: Element(s) to check (from slaProperties)
-- **driverSLA**: Importance (regulatory, analytics, operational) (from slaProperties)
-
-*Example:*
-
-| Field name            | Example value                         |
-|:----------------------|:--------------------------------------|
-| **slaDefaultElement** | default_customer_response_time        |
-| **propertySLA**       | maxResponseTime                       |
-| **valueSLA**          | 24                                    |
-| **valueExt**          | 48                                    |
-| **unitSLA**           | d                                     |
-| **elementSLA**        | customer_service_request              |
-| **driverSLA**         | operational                           |
-
-
-### Custom Properties
-
-Any custom or user-defined properties that extend the standard contract fields for specific needs.
-
-- **customProperty**: Name of the custom property
-- **customValue**: Value of the custom property
-
-*Example:*
-
-| Field name                | Example value                                 |
-|:--------------------------|:----------------------------------------------|
-| **customProperty**        | dataSensitivity                               |
-| **customValue**           | high                                          |
-
-
-### Other Properties
-
-- **contractCreatedTs**: Timestamp indicating when the data contract was created.
-
-*Example:*
-
-| Field name                | Example value                                                   |
-|:--------------------------|:----------------------------------------------------------------|
-| **contractCreatedTs**     | 2025-09-08T10:00:00Z                                            |
-
-### Authoritative Definitions
-
-| Field name                  | Example value                                   |
-|:----------------------------|:------------------------------------------------|
-| **typeAuthoritative**       | vaccination-guideline                           |
-| **urlAuthoritative**        | https://example.com/vaccination-guidelines.pdf  |
-
-Additional information about the specifications can be found at [Open Data Contract Standard](https://bitol-io.github.io/open-data-contract-standard/latest/).
-
----
+<br/>
+
+#### DPAT Witboost Metadata 
+Parameters for the DPAT Configuration template
+      
+- **name**: Required name used for display purposes (Required)
+- **domain**: Domain of the Data Product this DPAT configuration artifact belongs to (Required)
+  In our sandbox environment, you will find the following domains:
+     * Finance
+     * Marketing
+     * Organization        
+- **dataproduct**: Data Product this DPAT configuration artifact belongs to (Required)
+  A group referring your company name and related to the accounts that we are providing to you should be already created inside the sandbox environment, so you can select it:
+     * guest_admin
+     * ...
+     * ...
+- **dataProductRepo**: DPAT Configuration artifact will be created into this repository (ReadOnly)
+- **dataProductRootDirectory**: Root directory of the Data Product repository where the DPAT Configuration artifact will be created  (ReadOnly) 
+- **identifier**: A unique identifier for the entity inside the domain. It will not be editable after creation and is expected to be a string that is sequences of [a-zA-Z] separated by any of [-_] (ReadOnly)
+- **owner**: Automatically selected from the Data Product metadata. Data Product owner. (ReadOnly)
+- **dependsOn**: Add a depencies risk (if needed) and give a short description of it/them.
+   * Dependencies Risks
+
+<br/>
+
+_Example:_
+
+| Field name                     | Example value                                          |
+|:-------------------------------|:-------------------------------------------------------|
+| **Name**                       | DPAT Configuration                                     |
+| **Domain**                     | domain:engineering                                     |
+| **Data Product**               | system:engineering.payments-interbank-credit-transfer.0|
+| **Data Product Repository**    | rabo-wit-dp-engineering-paymentsinterbankcredittransfer|
+| **Data Product Rootdirectory** | owner:guest_developer                                  |
+| **_Identifier_**               | finance.rabobank-poc-dataproduct.0.dpat-configuration  |
+| **Component Owner**            | user:rafael.correia.nascimento_rabobank.nl             |
+| **Deponds on**                 | owner:guest_developer                                  |
+
+<br/>
+
+### Production variables:
+Parameters for the DPAT Configuration template (All fields are Required)
+      
+- **resourceGroupName**: Name of the Azure Resource Group where the DPAT Data Product will be deployed
+- **adlsStorageAccount**: Name of the ADLS Storage Account to be used in the DPAT Data Product configuration
+- **adlsContainerName**: Name of the ADLS Container to be used in the DPAT Data Product configuration
+- **databricksSecretKey**: Secret Key of the Databricks workspace to be used in the DPAT Data Product configuration
+- **azureClientId**: Client ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureTenantId**: Tenant ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureScope**: Scope to be used for Azure authentication in the DPAT Data Product configuration
+- **metadataAPI**: URL of the Metadata API to be used in the DPAT Data Product configuration
+- **dataProducerName**: Name of the Data Producer to be used in the DPAT Data Product configuration
+- **relativeUrl**: Relative URL to be used in the DPAT Data Product configuration
+
+<br/>
+
+_Example:_
+
+| Field name                     | Example value                                             |
+|:-------------------------------|:----------------------------------------------------------|
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-prod-0001                      |
+| **ADLS Storage Account**       | edldptsbxeuprod0001                                       |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **ADLS Type**                  | abfss                                                     |
+| **ADLS Endpoint URL**          | dfs.core.windows.net                                      |
+| **ADLS Path**                  | data                                                      |
+| **ADLS Format**                | delta                                                     |
+| **Databricks Secret Key**      | edl-dpat-sandbox-prod-databricks                          |
+| **Azure Client ID**            | 52ffdeb9-cc12-40ba-bc96-20e4cc206278                      |
+| **Azure Tenant ID**            | 6e93a626-8aca-4dc1-9191-ce291b4b75a1                      |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-prod/.default |
+| **Metadata API URL**           | 2680ea35-1fa1-40e4-8a86-1665ab814978.az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-prod-0001/overview |
+
+<br/>
+
+### QA variables:
+Parameters for the DPAT Configuration template (All fields are Required)
+      
+- **resourceGroupName**: Name of the Azure Resource Group where the DPAT Data Product will be deployed
+- **adlsStorageAccount**: Name of the ADLS Storage Account to be used in the DPAT Data Product configuration
+- **adlsContainerName**: Name of the ADLS Container to be used in the DPAT Data Product configuration
+- **databricksSecretKey**: Secret Key of the Databricks workspace to be used in the DPAT Data Product configuration
+- **azureClientId**: Client ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureTenantId**: Tenant ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureScope**: Scope to be used for Azure authentication in the DPAT Data Product configuration
+- **metadataAPI**: URL of the Metadata API to be used in the DPAT Data Product configuration
+- **relativeUrl**: Relative URL to be used in the DPAT Data Product configuration
+- **dataProducerName**: Name of the Data Producer to be used in the DPAT Data Product configuration
+
+<br/>
+
+_Example:_
+
+| Field name                     | Example value                                             |
+|:-------------------------------|:----------------------------------------------------------|
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-test-0001                      |
+| **ADLS Storage Account**       | edldptsbxeutest0001                                       |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **ADLS Type**                  | abfss                                                     |
+| **ADLS Endpoint URL**          | dfs.core.windows.net                                      |
+| **ADLS Path**                  | data                                                      |
+| **ADLS Format**                | delta                                                     |
+| **Databricks Secret Key**      | edl-dpat-sandbox-test-databricks                          |
+| **Azure Client ID**            | b5e4ed31-5641-48ec-aea7-fc60e5328234                      |
+| **Azure Tenant ID**            | 6e93a626-8aca-4dc1-9191-ce291b4b75a1                      |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-test/.default |
+| **Metadata API URL**           | dde6cda3-863d-4ce2-8c0e-c89d0e563353-nonprd.t-az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-test-0001/overview |
+
+<br/>
+
+### Development variables:
+Parameters for the DPAT Configuration template (All fields are Required)
+      
+- **resourceGroupName**:  Name of the Azure Resource Group where the DPAT Data Product will be deployed
+- **adlsStorageAccount**: Name of the ADLS Storage Account to be used in the DPAT Data Product configuration
+- **adlsContainerName**: Name of the ADLS Container to be used in the DPAT Data Product configuration
+- **databricksSecretKey**: Secret Key of the Databricks workspace to be used in the DPAT Data Product configuration
+- **azureClientId**: Client ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureTenantId**: Tenant ID of the Azure Service Principal to be used in the DPAT Data Product configuration
+- **azureScope**: Scope to be used for Azure authentication in the DPAT Data Product configuration
+- **metadataAPI**: URL of the Metadata API to be used in the DPAT Data Product configuration
+- **relativeUrl**: Relative URL to be used in the DPAT Data Product configuration
+- **dataProducerName**: Name of the Data Producer to be used in the DPAT Data Product configuration
+
+<br/>
+
+_Example:_
+
+| Field name                     | Example value                                             |
+|:-------------------------------|:----------------------------------------------------------|
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-dev-0001                       |
+| **ADLS Storage Account**       | edldptsbxeudev0001                                        |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **ADLS Type**                  | abfss                                                     |
+| **ADLS Endpoint URL**          | dfs.core.windows.net                                      |
+| **ADLS Path**                  | data                                                      |
+| **ADLS Format**                | delta                                                     |
+| **Databricks Secret Key**      | edl-dpat-sandbox-dev-databricks                           |
+| **Azure Client ID**            | 52ffdeb9-cc12-40ba-bc96-20e4cc206278                      |
+| **Azure Tenant ID**            | 6e93a626-8aca-4dc1-9191-ce291b4b75a1                      |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-test/.default |
+| **Metadata API URL**           | dde6cda3-863d-4ce2-8c0e-c89d0e563353-nonprd.t-az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-dev-0001/overview |
+
+<br/>
+
+#### Review and Create
+After the final step the system will show you the summary of the template, and you can go back and edit or go ahead and create the Component. With the examples values given here it should look something like this:
 
 After this the system will show you the summary of the template, and you can go back and edit or go ahead and create the Component.
 
 After clicking on "Create" the registering of the Component will start. If no errors occurred it will go through the 3 phases (Fetching, Publishing and Registering) and will give you the links to the newly created Repository and the component in the Catalog.
 
+<br/>
+
 #### Users guide
 Click [here](https://raw.githubusercontent.com/systemationbv/dpat-configuration-template/main/docs/dpat-configuration-template.pdf) for the graphical users guide
 
+
+<br/>
 
 **Be careful not to delete the `catalog-info.yml` as well as keep the project structure as given.**
