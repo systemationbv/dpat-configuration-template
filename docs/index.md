@@ -45,7 +45,7 @@ _Example:_
 | **Domain**                     | domain:engineering                                     |
 | **Data Product**               | system:engineering.payments-interbank-credit-transfer.0|
 | **Data Product Repository**    | rabo-wit-dp-engineering-paymentsinterbankcredittransfer|
-| **Data Product Rootdirectory** | owner:guest_developer                                  |
+| **Data Product Rootdirectory** | /components/dc-dpatconfiguration                       |
 | **_Identifier_**               | finance.rabobank-poc-dataproduct.0.dpat-configuration  |
 | **Component Owner**            | user:rafael.correia.nascimento_rabobank.nl             |
 | **Deponds on**                 | owner:guest_developer                                  |
@@ -165,6 +165,60 @@ _Example:_
 
 #### Review and Create
 After the final step the system will show you the summary of the template, and you can go back and edit or go ahead and create the Component. With the examples values given here it should look something like this:
+
+<br/>
+
+
+_Example:_
+
+| Field name                     | Example value                                             |
+|:-------------------------------|:----------------------------------------------------------|
+| **Name**                       | DPAT Configuration                                        |
+| **Domain**                     | domain:finance                                            |
+| **Data Product**               | system:finance.rabobank-poc-data-product.0                |
+| **Data Product Repository**    | rabo-wit-dp-finance                                       |
+| **Data Product Root Directory**| /components/dc-dpatconfiguration                          |
+| **Identifier**                 | finance.rabobank-poc-data-product.0.dpat-configuration    |
+| **Component Owner**            | user:guest_admin                                          |
+|                                |                                                           |
+| **Production**                 |                                                           |
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-prod-0001                      |
+| **ADLS Storage Account**       | edldptsbxeuprod0001                                       |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **Databricks Secret Key**      | edl-dpat-sandbox-prod-databricks                          |
+| **Azure Client ID**            | 52ffdeb9-cc12-40ba-bc96-20e4cc206278                      |
+| **Azure Tenant ID**            | e93a626-8aca-4dc1-9191-ce291b4b75a1                       |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-prod/.default |
+| **Metadata API URL**           | 2680ea35-1fa1-40e4-8a86-1665ab814978.az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-dev-0001/overview |
+|                                |                                                           |
+| **QA**                         |                                                           |
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-test-0001                      |
+| **ADLS Storage Account**       | edldptsbxeutest0001                                       |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **Databricks Secret Key**      | edl-dpat-sandbox-test-databricks                          |
+| **Azure Client ID**            | b5e4ed31-5641-48ec-aea7-fc60e5328234                      |
+| **Azure Tenant ID**            | 6e93a626-8aca-4dc1-9191-ce291b4b75a1                      |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-test/.default |
+| **Metadata API URL**           | dde6cda3-863d-4ce2-8c0e-c89d0e563353-nonprd.t-az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-test-0001/overview |
+|                                |                                                           |
+| **Development**                |                                                           |
+| **Resource Group Name**        | rg-edl-dpat-sandbox-westeu-dev-0001                       |
+| **ADLS Storage Account**       | edldptsbxeudev0001                                        |
+| **ADLS Container Name**        | dpat-sandbox                                              |
+| **Databricks Secret Key**      | edl-dpat-sandbox-dev-databricks                           |
+| **Azure Client ID**            | 52ffdeb9-cc12-40ba-bc96-20e4cc206278                      |
+| **Azure Tenant ID**            | 6e93a626-8aca-4dc1-9191-ce291b4b75a1                      |
+| **Azure Scope**                | http://wapp-edl-cap-metadata-api-westeurope-test/.default |
+| **Metadata API URL**           | dde6cda3-863d-4ce2-8c0e-c89d0e563353-nonprd.t-az-eu.api.rabo.cloud |
+| **Data Producer Name**         | Interbank Credit Transfer                                 |
+| **Relative URL**               | https://portal.azure.com/#@raboweb.onmicrosoft.com/resource/subscriptions/ac36d871-d439-49b0-b4d0-ece8f4096050/resourceGroups/rg-edl-dpat-sandbox-westeu-dev-0001/overview |
+
+
+<br/>
 
 After this the system will show you the summary of the template, and you can go back and edit or go ahead and create the Component.
 
